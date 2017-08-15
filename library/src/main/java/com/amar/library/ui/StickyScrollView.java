@@ -3,21 +3,22 @@ package com.amar.library.ui;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.widget.ScrollView;
 
 import com.amar.library.R;
 import com.amar.library.provider.ResourceProvider;
+import com.amar.library.provider.ScreenInfoProvider;
 import com.amar.library.provider.interfaces.IResourceProvider;
+import com.amar.library.provider.interfaces.IScreenInfoProvider;
 import com.amar.library.ui.interfaces.IScrollViewListener;
 import com.amar.library.ui.presentation.IStickyScrollPresentation;
 import com.amar.library.ui.presenter.StickyScrollPresenter;
-import com.amar.library.provider.ScreenInfoProvider;
-import com.amar.library.provider.interfaces.IScreenInfoProvider;
 
-public class StickyScrollView extends ScrollView implements IStickyScrollPresentation {
+public class StickyScrollView extends NestedScrollView implements IStickyScrollPresentation {
+
     private static final String TAG = StickyScrollView.class.getSimpleName();
     private IScrollViewListener scrollViewListener;
 
@@ -56,7 +57,7 @@ public class StickyScrollView extends ScrollView implements IStickyScrollPresent
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
-        if(stickyFooterView != null && !changed) {
+        if (stickyFooterView != null && !changed) {
             stickyFooterView.getLocationInWindow(updatedFooterLocation);
             mStickyScrollPresenter.recomputeFooterLocation(getRelativeTop(stickyFooterView), updatedFooterLocation[1]);
         }
@@ -146,8 +147,7 @@ public class StickyScrollView extends ScrollView implements IStickyScrollPresent
     }
 
     @Override
-    public Parcelable onSaveInstanceState()
-    {
+    public Parcelable onSaveInstanceState() {
         Bundle bundle = new Bundle();
         bundle.putParcelable(SUPER_STATE, super.onSaveInstanceState());
         bundle.putBoolean(SCROLL_STATE, mStickyScrollPresenter.mScrolled);
@@ -155,8 +155,7 @@ public class StickyScrollView extends ScrollView implements IStickyScrollPresent
     }
 
     @Override
-    public void onRestoreInstanceState(Parcelable state)
-    {
+    public void onRestoreInstanceState(Parcelable state) {
         if (state instanceof Bundle) {
             Bundle bundle = (Bundle) state;
             mStickyScrollPresenter.mScrolled = bundle.getBoolean(SCROLL_STATE);
