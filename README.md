@@ -1,5 +1,5 @@
 # StickyScrollView
-Sticky header and footer for android ScrollView.
+Sticky header and footer for android NestedScrollView.
 
 ### Install
 
@@ -16,7 +16,7 @@ Add jitpack to your root `build.gradle`
 Add the dependency
 ```
 	dependencies {
-	        compile 'com.github.amarjain07:StickyScrollView:1.0.2'
+	        compile 'com.github.ilyasshafigin:StickyScrollView:1.0.3'
 	}
 ```
 
